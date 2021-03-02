@@ -5,6 +5,7 @@ build:
   tags:
     - docker
     - lint
+  image: node:12
   stage: github_release
   script:
     - npm i && npm run deploy-all
