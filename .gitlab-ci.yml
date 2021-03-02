@@ -9,7 +9,7 @@ build:
   before_script:
     - yarn
   script:
-    - yarn deploy-all
+    - yarn deploy-mac && yarn deploy-windows
   only:
     - master
 # lint:
