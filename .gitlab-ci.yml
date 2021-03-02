@@ -3,8 +3,7 @@ stages:
 
 build:
   tags:
-    - docker
-    - lint
+    - macOS
   image: leifcr/electronuserland-builder-wine-mono-updated
   stage: github_release
   before_script:
