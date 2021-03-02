@@ -7,8 +7,10 @@ build:
     - lint
   image: node:12
   stage: github_release
+  before_scrip:
+    - yarn
   script:
-    - npm i && npm run deploy-all
+    - yarn deploy-all
   only:
     - master
 # lint:
