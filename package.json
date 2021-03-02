@@ -1,22 +1,29 @@
 {
-  "name": "desktop2",
-  "version": "0.0.1",
-  "description": "",
-  "main": "./src/main.js",
+  "name": "blerp-desktop",
+  "productName": "BlerpDesktop",
+  "version": "0.0.4",
+  "description": "My Electron application description",
   "license": "MIT",
+  "keywords": [],
+  "author": "Blerp",
   "scripts": {
     "dev": "electron-webpack dev",
     "compile": "electron-webpack",
     "dist": "yarn compile && electron-builder",
     "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null",
-    "build-all": "electron-builder build --win --darwin --linux --publish never",
-    "build-window": "electron-builder build --win --publish never",
-    "build-mac": "electron-builder build --darwin --publish never",
-    "build-linux": "electron-builder build --linux --publish never",
-    "deploy-all": "electron-builder build --win --darwin --linux --publish always",
-    "deploy-window": "electron-builder build --win --publish always",
-    "deploy-mac": "electron-builder build --darwin --publish always",
-    "deploy-linux": "electron-builder build --linux --publish always"
+    "build-all": "yarn compile && electron-builder build --win --darwin --linux --publish never",
+    "build-windows": "yarn compile && electron-builder build --win --publish never",
+    "build-mac": "yarn compile && electron-builder build --darwin --publish never",
+    "build-linux": "yarn compile && electron-builder build --linux --publish never",
+    "deploy-all": "yarn compile && electron-builder build --win --darwin --linux --publish always",
+    "deploy-windows": "yarn compile && electron-builder build --win --publish always",
+    "deploy-mac": "yarn compile && electron-builder build --darwin --publish always",
+    "deploy-linux": "yarn compile && electron-builder build --linux --publish always",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/blerp/desktop.git"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.13.9",

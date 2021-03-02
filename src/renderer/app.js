@@ -7,6 +7,11 @@ const App = () => {
   // const restartButton = document.getElementById("restart-button");
   console.log(window);
   if (window.isElectron) {
+    window.ipcRenderer.send("get-version")
+        window.ipcRenderer.on("set-version", (event, message) => {
+            console.log(message)
+            document.getElementById("version").innerText = message
+        })
     window.ipcRenderer.send("app_version");
     window.ipcRenderer.on("app_version", (event, arg) => {
       window.ipcRenderer.removeAllListeners("app_version");
@@ -42,7 +47,7 @@ const App = () => {
   };
   return (
     <>
-      <h1>Electron Auto Update Example</h1>
+      <h1>Electron Auto Update Example CHANGE</h1>
       <p id="version"></p>
       <button onClick={() => checkForUpdate()}>check</button>
       <div id="notification" className="hidden">

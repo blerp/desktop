@@ -1,6 +1,9 @@
 {
   "title": "BlerpDesktop",
   "main": {
+    "extraEntries": [
+      "@/preload.js"
+    ],
     "sourceDirectory": "src/main"
   },
   "renderer": {

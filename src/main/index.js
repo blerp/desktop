@@ -1,16 +1,21 @@
-import { app, BrowserWindow, ipcMain } from "electron";
-import { autoUpdater } from "electron-updater";
-import * as path from "path";
+const {
+  app,
+  BrowserWindow,
+  dialog,
+  ipcMain,
+} = require("electron");
+const { autoUpdater } = require('electron-updater');
+const path = require("path");
 
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
 let mainWindow;
 
 const isDev = process.env.NODE_ENV === "development";
-console.log(path.join(__dirname, "preload.js"));
+
 function createMainWindow() {
   const window = new BrowserWindow({
     webPreferences: {
-      devTools: isDev,
+      // devTools: isDev,
       nodeIntegration: true,
       // nodeIntegrationInWorker: false,
       // nodeIntegrationInSubFrames: false,
@@ -21,9 +26,8 @@ function createMainWindow() {
     },
   });
 
-  if (isDev) {
-    window.webContents.openDevTools();
-  }
+
+    window.webContents.openDevTools()
 
   if (isDev) {
     window.loadURL(
@@ -59,18 +63,22 @@ app.on("activate", () => {
   // on macOS it is common to re-create a window even after all windows have been closed
   if (mainWindow === null) {
     mainWindow = createMainWindow();
-    console.log(mainWindow.webPreferences);
   }
 });
 
 // create main BrowserWindow when electron is ready
 app.on("ready", () => {
   mainWindow = createMainWindow();
+  mainWindow.webContents.openDevTools()
 });
 
 ipcMain.on("check-for-update", (event, msg) => {
   autoUpdater.checkForUpdatesAndNotify();
 });
+
+ipcMain.on("get-version", (event, msg) => {
+  event.reply("set-version", app.getVersion())
+})
 
 autoUpdater.on("update-available", () => {
   mainWindow.webContents.send("update_available");
