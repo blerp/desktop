@@ -7,7 +7,7 @@ build:
     - lint
   image: node:12
   stage: github_release
-  before_scrip:
+  before_script:
     - yarn
   script:
     - yarn deploy-all
