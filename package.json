@@ -1,6 +1,6 @@
 {
   "name": "desktop2",
-  "version": "0.0.11",
+  "version": "0.0.1",
   "description": "",
   "main": "./src/main.js",
   "license": "MIT",
@@ -8,20 +8,31 @@
     "dev": "electron-webpack dev",
     "compile": "electron-webpack",
     "dist": "yarn compile && electron-builder",
-    "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null"
-  },
-  "dependencies": {
-    "@marshallofsound/webpack-asset-relocator-loader": "^0.5.0",
-    "electron-updater": "^4.3.8",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "source-map-support": "^0.5.16"
+    "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null",
+    "build-all": "electron-builder build --win --darwin --linux --publish never",
+    "build-window": "electron-builder build --win --publish never",
+    "build-mac": "electron-builder build --darwin --publish never",
+    "build-linux": "electron-builder build --linux --publish never",
+    "deploy-all": "electron-builder build --win --darwin --linux --publish always",
+    "deploy-window": "electron-builder build --win --publish always",
+    "deploy-mac": "electron-builder build --darwin --publish always",
+    "deploy-linux": "electron-builder build --linux --publish always"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.13.9",
     "@babel/preset-react": "^7.12.13",
     "electron": "8.2.0",
     "electron-builder": "^22.4.1",
     "electron-webpack": "^2.8.2",
     "webpack": "~4.42.1"
+  },
+  "dependencies": {
+    "@marshallofsound/webpack-asset-relocator-loader": "^0.5.0",
+    "css-loader": "^5.1.1",
+    "electron-is-dev": "^2.0.0",
+    "electron-updater": "^4.3.8",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "source-map-support": "^0.5.19"
   }
 }

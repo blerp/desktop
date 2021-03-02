@@ -1,30 +1,36 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import { autoUpdater } from "electron-updater";
 import * as path from "path";
-import { format as formatUrl } from "url";
-
-const isDevelopment = process.env.NODE_ENV !== "production";
 
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
 let mainWindow;
 
+const isDev = process.env.NODE_ENV === "development";
+console.log(path.join(__dirname, "preload.js"));
 function createMainWindow() {
-  const window = new BrowserWindow();
+  const window = new BrowserWindow({
+    webPreferences: {
+      devTools: isDev,
+      nodeIntegration: true,
+      // nodeIntegrationInWorker: false,
+      // nodeIntegrationInSubFrames: false,
+      // contextIsolation: true,
+      // enableRemoteModule: false,
+      // additionalArguments: [`storePath:${app.getPath("userData")}`],
+      preload: path.resolve(__dirname, "preload.js"),
+    },
+  });
 
-  if (isDevelopment) {
+  if (isDev) {
     window.webContents.openDevTools();
   }
 
-  if (isDevelopment) {
-    window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`);
-  } else {
+  if (isDev) {
     window.loadURL(
-      formatUrl({
-        pathname: path.join(__dirname, "index.html"),
-        protocol: "file",
-        slashes: true,
-      })
+      `http://${process.env.ELECTRON_WEBPACK_WDS_HOST}:${process.env.ELECTRON_WEBPACK_WDS_PORT}`
     );
+  } else {
+    window.loadFile(path.resolve(__dirname, "index.html"));
   }
 
   window.on("closed", () => {
@@ -53,6 +59,7 @@ app.on("activate", () => {
   // on macOS it is common to re-create a window even after all windows have been closed
   if (mainWindow === null) {
     mainWindow = createMainWindow();
+    console.log(mainWindow.webPreferences);
   }
 });
 

@@ -1,7 +1,14 @@
 // Initial welcome page. Delete the following line to remove it.
-import React from "react";
+import * as React from "react";
 import * as ReactDOM from "react-dom";
-import App from "./app.js";
+import App from "./App";
 import "./index.css";
 
-ReactDOM.render(<App />, document.getElementById("app"));
+// const appElem = document.getElementById("app");
+// appElem.innerHTML = "<h1>Hello World!</h1>";
+function render() {
+  console.log(window.isElectron);
+  ReactDOM.render(<App />, document.getElementById("app"));
+}
+
+render();
