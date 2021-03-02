@@ -5,7 +5,7 @@ build:
   tags:
     - docker
     - lint
-  image: node:12
+  image: leifcr/electronuserland-builder-wine-mono-updated
   stage: github_release
   before_script:
     - yarn

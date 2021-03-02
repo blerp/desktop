@@ -1,7 +1,7 @@
 // Initial welcome page. Delete the following line to remove it.
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import App from "./app";
+import App from "./App";
 import "./index.css";
 
 // const appElem = document.getElementById("app");
